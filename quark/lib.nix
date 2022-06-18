@@ -14,13 +14,14 @@
   # reality is that it might be a directed, acyclic graph. We should treat it
   # as such and work out if dependencies we require already exist in the link
   # tree. Use `lib.lists.listDfs` or `lib.lists.toposort`.
-  mkQuark =
-    { lib
-    , stdenv
-    , src
-    , name
-    , dependencies ? []
-    }: stdenv.mkDerivation rec {
+  mkQuark = {
+    lib,
+    stdenv,
+    src,
+    name,
+    dependencies ? [],
+  }:
+    stdenv.mkDerivation rec {
       inherit name src;
       installPhase = let
         # A function for creating links to depenencies in $out/quark.

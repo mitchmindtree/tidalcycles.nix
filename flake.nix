@@ -33,7 +33,7 @@
     system = "x86_64-linux";
     quark-lib = import ./quark/lib.nix;
     pkgs = inputs.nixpkgs.legacyPackages.${system};
-    ghcWithTidal = pkgs.haskellPackages.ghcWithPackages (p: [ p.tidal ]);
+    ghcWithTidal = pkgs.haskellPackages.ghcWithPackages (p: [p.tidal]);
   in rec {
     packages.${system} = rec {
       # SuperCollider quarks that are necessary for Tidal.
@@ -48,7 +48,7 @@
       superdirt = pkgs.callPackage ./quark/superdirt.nix {
         inherit (quark-lib) mkQuark;
         inherit (inputs) superdirt-src;
-        dependencies = [ dirt-samples vowel ];
+        dependencies = [dirt-samples vowel];
       };
 
       # Run `SuperDirt.start` in supercollider, ready for tidal.
@@ -92,5 +92,7 @@
       };
       default = tidal;
     };
+
+    formatter.${system} = pkgs.alejandra;
   };
 }

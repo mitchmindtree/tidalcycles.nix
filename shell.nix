@@ -1,11 +1,13 @@
 # An environment for messing around with Tidal Cycles.
-{ ghcWithTidal
-, stdenv
-, supercollider-with-plugins
-, superdirt
-, superdirt-start
-, tidal-ghci
-}: stdenv.mkDerivation {
+{
+  ghcWithTidal,
+  stdenv,
+  supercollider-with-plugins,
+  superdirt,
+  superdirt-start,
+  tidal-ghci,
+}:
+stdenv.mkDerivation {
   name = "tidal-dev";
   buildInputs = [
     ghcWithTidal
