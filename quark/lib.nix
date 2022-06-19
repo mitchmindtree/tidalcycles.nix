@@ -1,5 +1,8 @@
 # Collection of functions to assist with packaging of supercollider quarks.
 {
+  lib,
+  stdenv,
+}: {
   # A function that, given a Quark source location and its name, creates a
   # derivation for the quark installed in an expected location.
   #
@@ -15,8 +18,6 @@
   # as such and work out if dependencies we require already exist in the link
   # tree. Use `lib.lists.listDfs` or `lib.lists.toposort`.
   mkQuark = {
-    lib,
-    stdenv,
     src,
     name,
     dependencies ? [],
