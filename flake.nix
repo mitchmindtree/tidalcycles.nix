@@ -87,6 +87,21 @@
       };
     };
 
+    overlays = let
+      tidal-pkgs = packages.${system};
+    in rec {
+      # A nixpkgs overlay providing the tidal packages and vim plugin.
+      tidal = final: prev: {
+        inherit (tidal-pkgs) superdirt-start superdirt-install tidal;
+        vimPlugins =
+          prev.vimPlugins
+          // {
+            inherit (tidal-pkgs) vim-tidal;
+          };
+      };
+      default = tidal;
+    };
+
     devShells.${system} = rec {
       # A shell that provides a set of commonly useful packages for tidal.
       tidal = pkgs.mkShell {
