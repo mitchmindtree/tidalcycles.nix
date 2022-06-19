@@ -36,16 +36,17 @@
   };
 
   outputs = inputs: let
-    # Supported systems.
-    systems = [
+    # TODO: We should support darwin (macOS) here, supercollider package
+    # currently lacks support.
+    utils.supportedSystems = [
       "aarch64-linux"
       "i686-linux"
       "x86_64-linux"
-      # TODO: We should support darwin (macOS) here, supercollider package
-      # currently lacks support.
       # "aarch64-darwin"
       # "x86_64-darwin"
     ];
+    utils.eachSupportedSystem =
+      inputs.utils.lib.eachSystem utils.supportedSystems;
 
     mkPackages = pkgs: let
       quarklib = pkgs.callPackage ./quark/lib.nix {};
@@ -124,6 +125,16 @@
       default = tidal;
     };
 
+    templates = rec {
+      tidal-project = {
+        path = ./template;
+        description = ''
+          A standard nix flake template for a Tidal Cycles project.
+        '';
+      };
+      default = tidal-project;
+    };
+
     mkOutput = system: let
       pkgs = inputs.nixpkgs.legacyPackages.${system};
     in rec {
@@ -133,8 +144,8 @@
     };
 
     # The output for each system.
-    systemOutputs = inputs.utils.lib.eachSystem systems mkOutput;
+    systemOutputs = utils.eachSupportedSystem mkOutput;
   in
     # Merge the outputs and overlays.
-    systemOutputs // {inherit overlays;};
+    systemOutputs // {inherit overlays templates utils;};
 }
