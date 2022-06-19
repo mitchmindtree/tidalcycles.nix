@@ -102,15 +102,19 @@
       default = tidal;
     };
 
-    devShells.${system} = rec {
+    devShells.${system} = let
+      tidal-pkgs = packages.${system};
+    in rec {
       # A shell that provides a set of commonly useful packages for tidal.
       tidal = pkgs.mkShell {
         name = "tidal";
         buildInputs = [
           pkgs.supercollider-with-plugins
-          packages.${system}.superdirt-start
-          packages.${system}.tidal
+          tidal-pkgs.superdirt-start
+          tidal-pkgs.tidal
         ];
+        # Convenient access to a config providing all quarks required for Tidal.
+        SUPERDIRT_SCLANG_CONF = "${tidal-pkgs.superdirt}/sclang_conf.yaml";
       };
       default = tidal;
     };
