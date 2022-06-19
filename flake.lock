@@ -80,11 +80,11 @@
     "vim-tidal-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1655282124,
-        "narHash": "sha256-7iu7rGlvJjU7h8u38t+jSbsZW6s1c8oqquaJCb/YSgU=",
+        "lastModified": 1655623220,
+        "narHash": "sha256-A9NimlO6bdqTkt4UsWs2TaEngF8n+a7HeZ/kRh3YLos=",
         "owner": "mitchmindtree",
         "repo": "vim-tidal",
-        "rev": "0cd83856dee47318396205940adeb38f0202a65a",
+        "rev": "4a98788f54ed62f39c160404fe3e58986dab958c",
         "type": "github"
       },
       "original": {

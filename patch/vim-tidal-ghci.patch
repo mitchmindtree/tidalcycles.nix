@@ -1,8 +1,8 @@
 diff --git a/plugin/tidal.vim b/plugin/tidal.vim
-index 99d57b1..fe07808 100644
+index 51c7e4e..d4b6461 100644
 --- a/plugin/tidal.vim
 +++ b/plugin/tidal.vim
-@@ -34,7 +34,7 @@ if !exists("g:tidal_flash_duration")
+@@ -33,7 +33,7 @@ if !exists("g:tidal_flash_duration")
  endif
  
  if !exists("g:tidal_ghci")
