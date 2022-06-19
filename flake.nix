@@ -20,7 +20,10 @@
       flake = false;
     };
     vim-tidal-src = {
-      url = "github:tidalcycles/vim-tidal/master";
+      # TODO: Switch back to `tidalcycles` repo once Vim8 terminal support lands.
+      # See this PR: https://github.com/tidalcycles/vim-tidal/pull/74
+      # url = "github:tidalcycles/vim-tidal/master";
+      url = "github:mitchmindtree/vim-tidal/flupe-vim8-terminal-rebased";
       flake = false;
     };
     vowel-src = {
@@ -73,6 +76,10 @@
         pname = "vim-tidal";
         version = "master";
         src = inputs.vim-tidal-src;
+        # Patch the default GHCI with our `tidal` instance.
+        # TODO: Update `vim-tidal` to use an env var by default or something instead.
+        # Would be much cleaner than a patch with might conflict with future commits.
+        patches = [./patch/vim-tidal-ghci.patch];
         meta = {
           homepage = "https://github.com/tidalcycles/vim-tidal.vim";
           license = pkgs.lib.licenses.mit;
