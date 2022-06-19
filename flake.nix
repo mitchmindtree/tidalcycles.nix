@@ -8,6 +8,9 @@
       url = "github:tidalcycles/dirt-samples/master";
       flake = false;
     };
+    utils = {
+      url = "github:numtide/flake-utils";
+    };
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
@@ -33,24 +36,33 @@
   };
 
   outputs = inputs: let
-    system = "x86_64-linux";
-    quark-lib = import ./quark/lib.nix;
-    pkgs = inputs.nixpkgs.legacyPackages.${system};
-    ghcWithTidal = pkgs.haskellPackages.ghcWithPackages (p: [p.tidal]);
-  in rec {
-    packages.${system} = rec {
+    # Supported systems.
+    systems = [
+      "aarch64-linux"
+      "i686-linux"
+      "x86_64-linux"
+      # TODO: We should support darwin (macOS) here, supercollider package
+      # currently lacks support.
+      # "aarch64-darwin"
+      # "x86_64-darwin"
+    ];
+
+    mkPackages = pkgs: let
+      quarklib = pkgs.callPackage ./quark/lib.nix {};
+      ghcWithTidal = pkgs.haskellPackages.ghcWithPackages (p: [p.tidal]);
+    in rec {
       # SuperCollider quarks that are necessary for Tidal.
-      dirt-samples = pkgs.callPackage ./quark/dirt-samples.nix {
-        inherit (quark-lib) mkQuark;
-        inherit (inputs) dirt-samples-src;
+      dirt-samples = quarklib.mkQuark {
+        name = "Dirt-Samples";
+        src = inputs.dirt-samples-src;
       };
-      vowel = pkgs.callPackage ./quark/vowel.nix {
-        inherit (quark-lib) mkQuark;
-        inherit (inputs) vowel-src;
+      vowel = quarklib.mkQuark {
+        name = "Vowel";
+        src = inputs.vowel-src;
       };
-      superdirt = pkgs.callPackage ./quark/superdirt.nix {
-        inherit (quark-lib) mkQuark;
-        inherit (inputs) superdirt-src;
+      superdirt = quarklib.mkQuark {
+        name = "SuperDirt";
+        src = inputs.superdirt-src;
         dependencies = [dirt-samples vowel];
       };
 
@@ -87,38 +99,42 @@
       };
     };
 
-    overlays = let
-      tidal-pkgs = packages.${system};
-    in rec {
-      # A nixpkgs overlay providing the tidal packages and vim plugin.
-      tidal = final: prev: {
-        inherit (tidal-pkgs) superdirt-start superdirt-install tidal;
-        vimPlugins =
-          prev.vimPlugins
-          // {
-            inherit (tidal-pkgs) vim-tidal;
-          };
+    overlays = rec {
+      tidal = final: prev: let
+        tidalpkgs = mkPackages prev;
+      in {
+        inherit (tidalpkgs) superdirt-start superdirt-install tidal;
+        vimPlugins = prev.vimPlugins // {inherit (tidalpkgs) vim-tidal;};
       };
       default = tidal;
     };
 
-    devShells.${system} = let
-      tidal-pkgs = packages.${system};
-    in rec {
+    mkDevShells = pkgs: tidalpkgs: rec {
       # A shell that provides a set of commonly useful packages for tidal.
       tidal = pkgs.mkShell {
         name = "tidal";
         buildInputs = [
           pkgs.supercollider-with-plugins
-          tidal-pkgs.superdirt-start
-          tidal-pkgs.tidal
+          tidalpkgs.superdirt-start
+          tidalpkgs.tidal
         ];
         # Convenient access to a config providing all quarks required for Tidal.
-        SUPERDIRT_SCLANG_CONF = "${tidal-pkgs.superdirt}/sclang_conf.yaml";
+        SUPERDIRT_SCLANG_CONF = "${tidalpkgs.superdirt}/sclang_conf.yaml";
       };
       default = tidal;
     };
 
-    formatter.${system} = pkgs.alejandra;
-  };
+    mkOutput = system: let
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
+    in rec {
+      packages = mkPackages pkgs;
+      devShells = mkDevShells pkgs packages;
+      formatter = pkgs.alejandra;
+    };
+
+    # The output for each system.
+    systemOutputs = inputs.utils.lib.eachSystem systems mkOutput;
+  in
+    # Merge the outputs and overlays.
+    systemOutputs // {inherit overlays;};
 }
