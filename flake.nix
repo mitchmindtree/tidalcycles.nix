@@ -67,16 +67,21 @@
         dependencies = [dirt-samples vowel];
       };
 
+      # Supercollider with the SC3 plugins used by tidal.
+      supercollider = pkgs.supercollider-with-plugins.override {
+        plugins = [pkgs.supercolliderPlugins.sc3-plugins];
+      };
+
       # Run `SuperDirt.start` in supercollider, ready for tidal.
       superdirt-start = pkgs.writeShellScriptBin "superdirt-start" ''
-        ${pkgs.supercollider-with-plugins}/bin/sclang \
+        ${supercollider}/bin/sclang \
           -l "${superdirt}/sclang_conf.yaml" \
           ${pkgs.writeText "superdirt-start.sc" "SuperDirt.start;"}
       '';
 
       # Installs SuperDirt under your user's supercollider quarks.
       superdirt-install = pkgs.writeShellScriptBin "superdirt-start" ''
-        ${pkgs.supercollider-with-plugins}/bin/sclang ${superdirt}/install.sc
+        ${supercollider}/bin/sclang ${superdirt}/install.sc
       '';
 
       # Run the tidal interpreter (ghci running BootTidal.hs).
@@ -115,7 +120,7 @@
       tidal = pkgs.mkShell {
         name = "tidal";
         buildInputs = [
-          pkgs.supercollider-with-plugins
+          tidalpkgs.supercollider
           tidalpkgs.superdirt-start
           tidalpkgs.tidal
         ];
