@@ -56,7 +56,7 @@ A flake template for Tidal Cycles projects is provided.
 Start a new Tidal Cycles project with the following:
 
 ```
-nix flake new --template github:mitchmindtree/tidalcycles.nix ./my-tidal-project
+nix flake new --template github:mitchmindtree/tidalcycles.nix#templates.default ./my-tidal-project
 ```
 
 By default the project will have the `tidal` devShell. `cd` into your project
