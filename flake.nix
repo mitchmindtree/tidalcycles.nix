@@ -26,7 +26,7 @@
       # TODO: Switch back to `tidalcycles` repo once Vim8 terminal support lands.
       # See this PR: https://github.com/tidalcycles/vim-tidal/pull/74
       # url = "github:tidalcycles/vim-tidal/master";
-      url = "github:mitchmindtree/vim-tidal/flupe-vim8-terminal-rebased";
+      url = "github:mitchmindtree/vim-tidal/superdirt-term";
       flake = false;
     };
     vowel-src = {
@@ -73,11 +73,15 @@
       };
 
       # Run `SuperDirt.start` in supercollider, ready for tidal.
-      superdirt-start = pkgs.writeShellScriptBin "superdirt-start" ''
-        ${supercollider}/bin/sclang \
-          -l "${superdirt}/sclang_conf.yaml" \
-          ${pkgs.writeText "superdirt-start.sc" "SuperDirt.start;"}
-      '';
+      superdirt-start = pkgs.writeShellApplication {
+        name = "superdirt-start";
+        runtimeInputs = [supercollider];
+        text = ''
+          ${supercollider}/bin/sclang \
+            -l "${superdirt}/sclang_conf.yaml" \
+            ${pkgs.writeText "superdirt-start.sc" "SuperDirt.start;"}
+        '';
+      };
 
       # Installs SuperDirt under your user's supercollider quarks.
       superdirt-install = pkgs.writeShellScriptBin "superdirt-start" ''
@@ -94,10 +98,31 @@
         pname = "vim-tidal";
         version = "master";
         src = inputs.vim-tidal-src;
-        # Patch the default GHCI with our `tidal` instance.
-        # TODO: Update `vim-tidal` to use an env var by default or something instead.
-        # Would be much cleaner than a patch with might conflict with future commits.
-        patches = [./patch/vim-tidal-ghci.patch];
+        postInstall = let
+          # A vimscript file to set Nix defaults for ghci and `BootTidal.hs`.
+          defaults-file = pkgs.writeText "vim-tidal-defaults.vim" ''
+            " Prepend defaults provided by Nix packages.
+            if !exists("g:tidal_ghci")
+              let g:tidal_ghci = "${ghcWithTidal}/bin/ghci"
+            endif
+            if !exists("g:tidal_boot")
+              let g:tidal_boot = "${inputs.tidal-src}/BootTidal.hs"
+            endif
+            if !exists("g:tidal_superdirt_start")
+              let g:tidal_superdirt_start = "${superdirt-start}/bin/superdirt-start"
+            endif
+          '';
+        in ''
+          # Prepend a line to `plugin/tidal.vim` to source the defaults.
+          mv $out/plugin/tidal.vim $out/plugin/tidal.vim.old
+          cat ${defaults-file} $out/plugin/tidal.vim.old > $out/plugin/tidal.vim
+          rm $out/plugin/tidal.vim.old
+
+          # Remove unnecessary files.
+          rm -r $out/bin
+          rm $out/Makefile
+          rm $out/Tidal.ghci
+        '';
         meta = {
           homepage = "https://github.com/tidalcycles/vim-tidal.vim";
           license = pkgs.lib.licenses.mit;
