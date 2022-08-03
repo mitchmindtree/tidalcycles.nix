@@ -23,10 +23,11 @@
       flake = false;
     };
     vim-tidal-src = {
-      # TODO: Switch back to `tidalcycles` repo once Vim8 terminal support lands.
+      # TODO: Switch back to `tidalcycles` repo once Vim8 terminal support
+      # lands and following boot tidal and superdirt terminal commits.
       # See this PR: https://github.com/tidalcycles/vim-tidal/pull/74
       # url = "github:tidalcycles/vim-tidal/master";
-      url = "github:mitchmindtree/vim-tidal/superdirt-term";
+      url = "github:mitchmindtree/vim-tidal/find-tidal-boot";
       flake = false;
     };
     vowel-src = {
@@ -105,8 +106,8 @@
             if !exists("g:tidal_ghci")
               let g:tidal_ghci = "${ghcWithTidal}/bin/ghci"
             endif
-            if !exists("g:tidal_boot")
-              let g:tidal_boot = "${inputs.tidal-src}/BootTidal.hs"
+            if !exists("g:tidal_boot_fallback")
+              let g:tidal_boot_fallback = "${inputs.tidal-src}/BootTidal.hs"
             endif
             if !exists("g:tidal_superdirt_start")
               let g:tidal_superdirt_start = "${superdirt-start}/bin/superdirt-start"
