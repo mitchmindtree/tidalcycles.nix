@@ -27,7 +27,7 @@
       # lands and following boot tidal and superdirt terminal commits.
       # See this PR: https://github.com/tidalcycles/vim-tidal/pull/74
       # url = "github:tidalcycles/vim-tidal/master";
-      url = "github:mitchmindtree/vim-tidal/find-tidal-boot";
+      url = "github:mitchmindtree/vim-tidal/find-sc-boot";
       flake = false;
     };
     vowel-src = {
@@ -73,14 +73,24 @@
         plugins = [pkgs.supercolliderPlugins.sc3-plugins];
       };
 
+      # A sclang command with superdirt included via conf yaml.
+      sclang-with-superdirt = pkgs.writeShellApplication {
+        name = "sclang-with-superdirt";
+        runtimeInputs = [supercollider];
+        text = ''
+          ${supercollider}/bin/sclang -l "${superdirt}/sclang_conf.yaml" "$@"
+        '';
+      };
+
+      # A very simple default superdirt start file.
+      superdirt-start-sc = pkgs.writeText "superdirt-start.sc" "SuperDirt.start;";
+
       # Run `SuperDirt.start` in supercollider, ready for tidal.
       superdirt-start = pkgs.writeShellApplication {
         name = "superdirt-start";
         runtimeInputs = [supercollider];
         text = ''
-          ${supercollider}/bin/sclang \
-            -l "${superdirt}/sclang_conf.yaml" \
-            ${pkgs.writeText "superdirt-start.sc" "SuperDirt.start;"}
+          ${sclang-with-superdirt}/bin/sclang-with-superdirt ${superdirt-start-sc}
         '';
       };
 
@@ -106,11 +116,14 @@
             if !exists("g:tidal_ghci")
               let g:tidal_ghci = "${ghcWithTidal}/bin/ghci"
             endif
+            if !exists("g:tidal_sclang")
+              let g:tidal_sclang = "${sclang-with-superdirt}/bin/sclang-with-superdirt"
+            endif
             if !exists("g:tidal_boot_fallback")
               let g:tidal_boot_fallback = "${inputs.tidal-src}/BootTidal.hs"
             endif
-            if !exists("g:tidal_superdirt_start")
-              let g:tidal_superdirt_start = "${superdirt-start}/bin/superdirt-start"
+            if !exists("g:tidal_sc_boot_fallback")
+              let g:tidal_sc_boot_fallback = "${superdirt-start-sc}"
             endif
           '';
         in ''

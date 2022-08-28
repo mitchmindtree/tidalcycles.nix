@@ -96,16 +96,16 @@
     "vim-tidal-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1659276864,
-        "narHash": "sha256-0TcTuTEwGe8WnfeyK/Auq0Czeng5fsJC/tP+5tv0Je0=",
+        "lastModified": 1661644989,
+        "narHash": "sha256-Fq+eDr1mKwkzXMu4+LawILa45xFohVatO63DPYqU9Cg=",
         "owner": "mitchmindtree",
         "repo": "vim-tidal",
-        "rev": "d758da43286e1ab84000ed7e60161834b7fb81be",
+        "rev": "3fd9b07e56fea9462eb810a9be09f1c064cfcf64",
         "type": "github"
       },
       "original": {
         "owner": "mitchmindtree",
-        "ref": "find-tidal-boot",
+        "ref": "find-sc-boot",
         "repo": "vim-tidal",
         "type": "github"
       }
