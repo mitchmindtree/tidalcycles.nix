@@ -27,7 +27,7 @@
       # lands and following boot tidal and superdirt terminal commits.
       # See this PR: https://github.com/tidalcycles/vim-tidal/pull/74
       # url = "github:tidalcycles/vim-tidal/master";
-      url = "github:mitchmindtree/vim-tidal/find-sc-boot";
+      url = "github:mitchmindtree/vim-tidal/mitchmindtree";
       flake = false;
     };
     vowel-src = {
