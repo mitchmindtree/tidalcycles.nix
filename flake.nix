@@ -90,7 +90,8 @@
         name = "superdirt-start";
         runtimeInputs = [supercollider];
         text = ''
-          ${sclang-with-superdirt}/bin/sclang-with-superdirt ${superdirt-start-sc}
+          start_script="''${1:-${superdirt-start-sc}}"
+          ${sclang-with-superdirt}/bin/sclang-with-superdirt "$start_script"
         '';
       };
 
