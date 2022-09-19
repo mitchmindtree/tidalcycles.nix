@@ -26,7 +26,7 @@ Includes the following packages:
 
 | Package | Description |
 | --- | --- |
-| `superdirt-start` | A short-hand command for starting up SuperCollider and running `SuperDirt.start;`. No need to manually install `SuperDirt` as it is provided to `sclang` via a custom `sclang_conf.yaml`. |
+| `superdirt-start` | A short-hand command for starting up SuperCollider and running `SuperDirt.start;`. No need to manually install `SuperDirt` as it is provided to `sclang` via a custom `sclang_conf.yaml`. If you want to use a custom start script (e.g. to load additional samples), you can pass its path as an argument to the command. |
 | `tidal` | A command for entering the `GHCi` interpreter initialised with [`BootTidal.hs`](https://github.com/tidalcycles/Tidal/blob/main/BootTidal.hs) and the Tidal library loaded. This is a useful repl for experimenting with Tidal. |
 | `superdirt-install` | A command for installing SuperDirt and its dependencies under the user's SuperCollider configuration (the traditional installation approach). This is currently the recommended way to provide SuperDirt to the SuperCollider IDE until [this issue](https://github.com/mitchmindtree/tidalcycles.nix/issues/3) is addressed. |
 | `vim-tidal` | This is the official [tidalcycles Vim plugin](https://github.com/tidalcycles/vim-tidal) packaged for Nix and patched to use the `tidal` command for its GHCi interpreter. |
