@@ -23,11 +23,7 @@
       flake = false;
     };
     vim-tidal-src = {
-      # TODO: Switch back to `tidalcycles` repo once Vim8 terminal support
-      # lands and following boot tidal and superdirt terminal commits.
-      # See this PR: https://github.com/tidalcycles/vim-tidal/pull/74
-      # url = "github:tidalcycles/vim-tidal/master";
-      url = "github:mitchmindtree/vim-tidal/mitchmindtree";
+      url = "github:tidalcycles/vim-tidal/master";
       flake = false;
     };
     vowel-src = {
