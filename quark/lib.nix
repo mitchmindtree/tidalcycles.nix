@@ -34,8 +34,8 @@
         # Write a `sc` file that can be used to install the quark imperatively.
         # TODO: Don't clear all quarks - only remove any with matching ${name}.
         install-sc = ''
-          Quarks.clear;
-          Quarks.install(\"$out\");
+          Quarks:clear;
+          Quarks:install(\"$out\");
           thisProcess.recompile();\
         '';
 
