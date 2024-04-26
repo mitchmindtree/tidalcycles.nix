@@ -108,7 +108,7 @@
       };
 
       # Installs SuperDirt under your user's supercollider quarks.
-      superdirt-install = pkgs.writeShellScriptBin "superdirt-start" ''
+      superdirt-install = pkgs.writeShellScriptBin "superdirt-install" ''
         ${supercollider}/bin/sclang ${superdirt}/install.sc
       '';
 
@@ -174,6 +174,7 @@
         buildInputs = [
           tidalpkgs.supercollider
           tidalpkgs.superdirt-start
+          tidalpkgs.superdirt-install
           tidalpkgs.tidal
         ];
         # Convenient access to a config providing all quarks required for Tidal.
