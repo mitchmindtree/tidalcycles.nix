@@ -161,7 +161,7 @@
       tidal = final: prev: let
         tidalpkgs = mkPackages prev;
       in {
-        inherit (tidalpkgs) superdirt-start superdirt-install tidal;
+        inherit (tidalpkgs) superdirt-start superdirt-install tidal sclang-with-superdirt;
         vimPlugins = prev.vimPlugins // {inherit (tidalpkgs) vim-tidal;};
       };
       default = tidal;
@@ -176,6 +176,7 @@
           tidalpkgs.superdirt-start
           tidalpkgs.superdirt-install
           tidalpkgs.tidal
+          tidalpkgs.sclang-with-superdirt
         ];
         # Convenient access to a config providing all quarks required for Tidal.
         SUPERDIRT_SCLANG_CONF = "${tidalpkgs.superdirt}/sclang_conf.yaml";
