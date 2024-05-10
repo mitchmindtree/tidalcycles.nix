@@ -109,7 +109,7 @@
 
       # Installs SuperDirt under your user's supercollider quarks.
       superdirt-install = pkgs.writeShellScriptBin "superdirt-install" ''
-        ${supercollider}/bin/sclang ${superdirt}/install.sc
+        ${supercollider}/bin/sclang ${superdirt}/install.scd
       '';
 
       # Run the tidal interpreter (ghci running BootTidal.hs).
