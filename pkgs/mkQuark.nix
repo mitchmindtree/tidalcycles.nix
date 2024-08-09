@@ -2,7 +2,7 @@
 {
   lib,
   stdenv,
-}: {
+}:
   # A function that, given a Quark source location and its name, creates a
   # derivation for the quark installed in an expected location.
   #
@@ -17,7 +17,7 @@
   # reality is that it might be a directed, acyclic graph. We should treat it
   # as such and work out if dependencies we require already exist in the link
   # tree. Use `lib.lists.listDfs` or `lib.lists.toposort`.
-  mkQuark = {
+  {
     src,
     name,
     dependencies ? [],
@@ -55,5 +55,4 @@
         echo "${install-scd}" >> $out/install.scd
         echo "${sclang-conf-yaml}" >> $out/sclang_conf.yaml
       '';
-    };
-}
+    }
