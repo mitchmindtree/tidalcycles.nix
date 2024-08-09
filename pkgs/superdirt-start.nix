@@ -7,7 +7,7 @@
 }:
 writeShellApplication {
   name = "superdirt-start";
-  runtimeInputs = [supercollider-with-sc3-plugins];
+  runtimeInputs = [ supercollider-with-sc3-plugins ];
   text = ''
     start_script="''${1:-${superdirt-start-sc}}"
 

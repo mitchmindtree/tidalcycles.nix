@@ -10,7 +10,7 @@ let
 in
 writeShellApplication {
   name = "sclang-with-superdirt";
-  runtimeInputs = [supercollider-with-sc3-plugins];
+  runtimeInputs = [ supercollider-with-sc3-plugins ];
   text = ''
     ${supercollider}/bin/sclang -l "${superdirt}/sclang_conf.yaml" "$@"
   '';

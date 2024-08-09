@@ -7,9 +7,9 @@
 }:
 final: prev: {
   # Short-hand for GHC with the tidal pkg.
-  ghcWithTidal = prev.haskellPackages.ghcWithPackages (p: [p.tidal]);
+  ghcWithTidal = prev.haskellPackages.ghcWithPackages (p: [ p.tidal ]);
   # A fn to create a supercollider quark derivation.
-  mkQuark = prev.callPackage ./pkgs/mkQuark.nix {};
+  mkQuark = prev.callPackage ./pkgs/mkQuark.nix { };
   # The set of required supercollider quarks.
   supercolliderQuarks = {
     dirt-samples = final.mkQuark {
@@ -23,7 +23,10 @@ final: prev: {
     superdirt = final.mkQuark {
       name = "SuperDirt";
       src = superdirt-src;
-      dependencies = with final.supercolliderQuarks; [ dirt-samples vowel ];
+      dependencies = with final.supercolliderQuarks; [
+        dirt-samples
+        vowel
+      ];
     };
   };
   # A sclang command with superdirt included via conf yaml.
