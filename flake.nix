@@ -4,27 +4,27 @@
   '';
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Non-flake source.
     dirt-samples-src = {
-      url = "github:tidalcycles/dirt-samples/master";
+      url = "github:tidalcycles/dirt-samples";
       flake = false;
     };
     superdirt-src = {
-      url = "github:musikinformatik/superdirt/master"; # use `develop` branch as its default?
+      url = "github:musikinformatik/superdirt";
       flake = false;
     };
     tidal-src = {
-      url = "github:tidalcycles/tidal/main";
+      url = "github:tidalcycles/tidal/v1.9.5";
       flake = false;
     };
     vim-tidal-src = {
-      url = "github:tidalcycles/vim-tidal/master";
+      url = "github:tidalcycles/vim-tidal";
       flake = false;
     };
     vowel-src = {
-      url = "github:supercollider-quarks/vowel/master";
+      url = "github:supercollider-quarks/vowel";
       flake = false;
     };
   };
@@ -73,6 +73,7 @@
         superdirt-install = pkgs.superdirt-install;
         tidal = pkgs.tidal;
         vim-tidal = pkgs.vimPlugins.vim-tidal;
+        default = inputs.self.packages.${pkgs.system}.tidal;
       });
 
       devShells = perSystemPkgs (pkgs: {

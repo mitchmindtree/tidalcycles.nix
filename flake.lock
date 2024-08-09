@@ -3,16 +3,15 @@
     "dirt-samples-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1667426233,
-        "narHash": "sha256-Zl2bi9QofcrhU63eMtg+R6lhV9ExQS/0XNTJ+oq65Uo=",
+        "lastModified": 1698439458,
+        "narHash": "sha256-Mp8qBpsOvW9Zguv95Kv7EU6S3ICaF2aO02Wz6xGURtE=",
         "owner": "tidalcycles",
         "repo": "dirt-samples",
-        "rev": "92f2145e661b397e62ca0ff3965819e7c7db0dad",
+        "rev": "9a6dff8f9ec3cd55b287290cf04e01afa6b8f532",
         "type": "github"
       },
       "original": {
         "owner": "tidalcycles",
-        "ref": "master",
         "repo": "dirt-samples",
         "type": "github"
       }
@@ -21,13 +20,13 @@
       "locked": {
         "lastModified": 1722813957,
         "narHash": "sha256-IAoYyYnED7P8zrBFMnmp7ydaJfwTnwcnqxUElC1I26Y=",
-        "owner": "NixOS",
+        "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "cb9a96f23c491c081b38eab96d22fa958043c9fa",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
@@ -46,16 +45,15 @@
     "superdirt-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1611740180,
-        "narHash": "sha256-GtnqZeMFqFkVhgx2Exu0wY687cHa7mNnVCgjQd6fiIA=",
+        "lastModified": 1697377840,
+        "narHash": "sha256-9qU9CHYAXbN1IE3xXDqGipuroifVaSVXj3c/cDfwM80=",
         "owner": "musikinformatik",
         "repo": "superdirt",
-        "rev": "7abb62e89649daa1232b9cbd6427241868abd30e",
+        "rev": "c7f32998572984705d340e7c1b9ed9ad998a39b6",
         "type": "github"
       },
       "original": {
         "owner": "musikinformatik",
-        "ref": "master",
         "repo": "superdirt",
         "type": "github"
       }
@@ -63,16 +61,16 @@
     "tidal-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1654350756,
-        "narHash": "sha256-tONM5SYYBca0orTLH1EUOilSC1FCluWrFt8AetUx+YQ=",
+        "lastModified": 1712519522,
+        "narHash": "sha256-LbvxQmVxHElidCgvt+w0g1k+QQbNLebK46vtRCgsLeQ=",
         "owner": "tidalcycles",
         "repo": "tidal",
-        "rev": "fda9c1ecb3722698935245e5409ef8ccdfca16c8",
+        "rev": "88f09edf6bef2228d5f530dea872b08a9d803066",
         "type": "github"
       },
       "original": {
         "owner": "tidalcycles",
-        "ref": "main",
+        "ref": "v1.9.5",
         "repo": "tidal",
         "type": "github"
       }
@@ -80,16 +78,15 @@
     "vim-tidal-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1664252474,
-        "narHash": "sha256-hleiK2Q7xYndpB+tIbyyXIM2sk4NunUh9DPgMqmf/Wc=",
+        "lastModified": 1685703852,
+        "narHash": "sha256-8gyk17YLeKpLpz3LRtxiwbpsIbZka9bb63nK5/9IUoA=",
         "owner": "tidalcycles",
         "repo": "vim-tidal",
-        "rev": "b07f5c12986fb837e055d7fcf0acf3b7e248148f",
+        "rev": "e440fe5bdfe07f805e21e6872099685d38e8b761",
         "type": "github"
       },
       "original": {
         "owner": "tidalcycles",
-        "ref": "master",
         "repo": "vim-tidal",
         "type": "github"
       }
@@ -106,7 +103,6 @@
       },
       "original": {
         "owner": "supercollider-quarks",
-        "ref": "master",
         "repo": "vowel",
         "type": "github"
       }
