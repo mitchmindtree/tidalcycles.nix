@@ -8,7 +8,7 @@
   vimUtils,
   writeText,
 }:
-vimUtils.buildVimPluginFrom2Nix {
+vimUtils.buildVimPlugin {
   inherit src;
   pname = "vim-tidal";
   version = "master";

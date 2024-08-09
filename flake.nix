@@ -61,7 +61,7 @@
       superdirt-start = pkgs.superdirt-start;
       superdirt-install = pkgs.superdirt-install;
       tidal = pkgs.tidal;
-      vimPlugins.vim-tidal = pkgs.vimPlugins.vim-tidal;
+      vim-tidal = pkgs.vimPlugins.vim-tidal;
     });
 
     devShells = perSystemPkgs(pkgs: {
