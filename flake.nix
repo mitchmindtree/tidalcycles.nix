@@ -108,8 +108,8 @@
       };
 
       # Installs SuperDirt under your user's supercollider quarks.
-      superdirt-install = pkgs.writeShellScriptBin "superdirt-start" ''
-        ${supercollider}/bin/sclang ${superdirt}/install.sc
+      superdirt-install = pkgs.writeShellScriptBin "superdirt-install" ''
+        ${supercollider}/bin/sclang ${superdirt}/install.scd
       '';
 
       # Run the tidal interpreter (ghci running BootTidal.hs).
@@ -161,7 +161,7 @@
       tidal = final: prev: let
         tidalpkgs = mkPackages prev;
       in {
-        inherit (tidalpkgs) superdirt-start superdirt-install tidal;
+        inherit (tidalpkgs) superdirt-start superdirt-install tidal sclang-with-superdirt;
         vimPlugins = prev.vimPlugins // {inherit (tidalpkgs) vim-tidal;};
       };
       default = tidal;
@@ -174,7 +174,9 @@
         buildInputs = [
           tidalpkgs.supercollider
           tidalpkgs.superdirt-start
+          tidalpkgs.superdirt-install
           tidalpkgs.tidal
+          tidalpkgs.sclang-with-superdirt
         ];
         # Convenient access to a config providing all quarks required for Tidal.
         SUPERDIRT_SCLANG_CONF = "${tidalpkgs.superdirt}/sclang_conf.yaml";

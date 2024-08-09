@@ -9,7 +9,7 @@
   # The resulting quark contains:
   # - `quark` subdirectory, containing the quark itself along with symbolic
   # links to each of its dependencies.
-  # - a `install.sc` file that can be used to install the Quark imperatively.
+  # - a `install.scd` file that can be used to install the Quark imperatively.
   # - a `sclang_conf.yaml` that can be used to provide the quark and its
   # dependencies directly to an interpreter.
   #
@@ -33,10 +33,10 @@
 
         # Write a `sc` file that can be used to install the quark imperatively.
         # TODO: Don't clear all quarks - only remove any with matching ${name}.
-        install-sc = ''
+        install-scd = ''
           Quarks.clear;
           Quarks.install(\"$out\");
-          thisProcess.recompile();\
+          thisProcess.recompile();
         '';
 
         # Write a yaml config file with an entry for this quark.
@@ -52,7 +52,7 @@
         mkdir -p $out/quark/${name}
         cp -r ./* $out/quark/${name}
         ${ln-deps}
-        echo "${install-sc}" >> $out/install.sc
+        echo "${install-scd}" >> $out/install.scd
         echo "${sclang-conf-yaml}" >> $out/sclang_conf.yaml
       '';
     };
